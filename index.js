@@ -25,7 +25,9 @@ function populateWeekNumbers(){
         weekNumberCell.style.borderBottom = '2px solid black';
         weekNumberCell.style.borderRight = '2px solid black';
         weekNumberCell.style.minWidth = '1.5em';
+        weekNumberCell.style.maxWidth = '1.5em';
         weekNumberCell.style.textAlign = 'center';
+        weekNumberCell.style.background = 'antiquewhite';
         weekNumberRow.appendChild(weekNumberCell);
     } 
 }
@@ -41,6 +43,7 @@ function populateProjectNames(DATA){
         nameCell.style.borderTop = '2px solid black';
         nameCell.style.borderBottom = '2px solid black';
         nameCell.style.fontWeight = 'bold';
+        nameCell.style.marginRight = '0';
         nameCell = elemAttr(nameCell, {id: `proj-${val.match(/[0-9]/g)}`})
         return nameCell;
     });
