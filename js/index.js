@@ -1,12 +1,50 @@
 /* event listeners for clicks and prompts */
 
-document.addEventListener('click', function(e){
+//would also have to change the id of the element
+var projectNames = document.querySelector('.project-names')
+projectNames.addEventListener('click', function(e){
     e = e || window.event;
     var target = e.target || e.srcElement;
         var text = target.textContent || text.innerText;
-        console.log(e.target.id);
-        console.log(e.target.className);
-        console.log(text);
+        element = document.getElementById(e.target.id);
+        if((element.id).match(/proj/g) !== null){
+            if((element.id).match(/week/g) !== null){
+               var textEntered = prompt("You wish to change the employee capacity of this cell. The current value is listed in the input box", text);
+               if(textEntered == null || textEntered == ""){
+                   console.log('Use cancelled input');
+               }
+               else {
+                   element.innerHTML = textEntered;
+                   updateCellColor(element);
+               }
+            }
+            else if(element.id.match(/week-translate/g) !== null){
+                if(textEntered == null || textEntered == ""){
+                    console.log('Use cancelled input');
+                }
+                else {
+                    if(textEntered != '26' || textEntered != '52')
+                        console.log("you can only set 26 or 52 weeks.");
+                    else
+                        setWeekView(textEntered);
+                }
+            }
+            else {
+                var textEntered = prompt("You wish to change the project name of this cell. The current name is listed in the input box", text);
+                if(textEntered == null || textEntered == ""){
+                    console.log('Use cancelled input');
+                }
+                else {
+                    element.innerHTML = textEntered;
+                    element.id = textEntered.toLowerCase().replace(' ', '-');
+                }
+            }
+        }
+        else {
+            console.log("no changeable element was clicked.");
+        }
+        //console.log(e.target.id);
+        //console.log(text);
 }, false);
 
 
@@ -15,6 +53,8 @@ document.addEventListener('click', function(e){
 var DATA = {
     projectNames: ["Project-1", "Project-2", "Project-3", "Project-4", "Project-5", "Project-6", "Project-7", "Project-8", "Project-9", "Project-11", "Project-12", "Project-13", "Project-14", "Project-15"]
 }
+
+var WEEKNUMBER = 52;
 
 var fteARR = [];
 
@@ -41,7 +81,7 @@ function genRandomData(arr) {
 function getRandomData() {
     var stoArr = [];
     var sampleData = 0;
-    for(var j = 0; j < 52; j++){
+    for(var j = 0; j < WEEKNUMBER; j++){
         if( j < 13){ 
             sampleData = Math.round(Math.random());
         }
@@ -60,7 +100,7 @@ function populateWeekNumbers(){
     weekNumberRow = weekNumberTable.appendChild(weekNumberRow);
 
     
-    for(var i = 0; i < 52; i++){
+    for(var i = 0; i < WEEKNUMBER; i++){
         var weekNumberCell = document.createElement('td');
         weekNumberCell.style.fontWeight = 'bold';
         weekNumberCell = elemAttr(weekNumberCell, {id: `week-id-${i+1}`});
@@ -135,6 +175,25 @@ function fteAlerts(){
     }
 }
 
+function updateCellColor(node){
+    if(node.innerHTML == 0){
+       node.style.background = 'antiquewhite';
+        node.style.color = 'antiquewhite';
+    }
+    else if(node.innerHTML == 1){
+        node.style.background = '#ffd731';
+        node.style.color = '#ffd731';
+    }
+    else if(node.innerHTML == 2){
+        node.style.background = '#ffa900';
+        node.style.color = '#ffa900';
+    }
+    else {
+        node.style.background = '#ff6246';
+        node.style.color = '#ff6246';
+    }
+}
+
 
 function elemAttr(node, classObj){
     switch((Object.keys(classObj))[0]){
@@ -147,6 +206,11 @@ function elemAttr(node, classObj){
         default: 
             return node;
     }
+}
+
+function setWeekView(weekChange){
+    document.getElementById('week-translate').innerHTML = `WeekView: ${weekChange} Weeks.`;
+    console.log("you have successfully changed the view to " + WEEKNUMBER + " weeks.");
 }
 
 populateWeekNumbers();
@@ -174,3 +238,30 @@ fteAlerts();
                                                     <td>2</td>
                                                 </tr>
 */
+
+
+/* REDUX */
+
+var state = {
+    projectNames: this.projectNames,
+    weekNumber: this.weekNumber,
+    capacityPerWeek: this.capacityPerWeek,
+    capacityPerProject: this.capacityPerProject
+};
+
+function setDefaultState(){
+    state.projectNames = DATA.projectNames;
+    state.weekNumber = WEEKNUMBER;
+    state.capacityPerProject = [];
+    state.capacityPerWeek = [];
+    
+}
+
+setDefaultState();
+
+
+function getCapacityPerProject(){
+
+}
+
+console.log(fteARR);
