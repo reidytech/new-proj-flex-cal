@@ -1,3 +1,15 @@
+/* event listeners for clicks and prompts */
+
+document.addEventListener('click', function(e){
+    e = e || window.event;
+    var target = e.target || e.srcElement;
+        var text = target.textContent || text.innerText;
+        console.log(e.target.id);
+        console.log(e.target.className);
+        console.log(text);
+}, false);
+
+
 /* constant sample data */
 
 var DATA = {
@@ -20,16 +32,22 @@ var accessDataCellArr = {
 }
 
 accessDataCellArr.dataCellArr = [];
-console.log(accessDataCellArr.dataCellArr);
 
 function genRandomData(arr) {
     fteARR.push(arr);
 }
 
+//make 0 FTE WHITE (not black for borders, which you have to take out)
 function getRandomData() {
     var stoArr = [];
-    for(var j = 0; j < 60; j++){
-        var sampleData = Math.floor((Math.random() * 16) + 1);
+    var sampleData = 0;
+    for(var j = 0; j < 52; j++){
+        if( j < 13){ 
+            sampleData = Math.round(Math.random());
+        }
+        else {
+            sampleData = Math.floor((Math.random() * 4) + 1);
+        }
         stoArr.push(sampleData);
     }
     return stoArr;
@@ -42,7 +60,7 @@ function populateWeekNumbers(){
     weekNumberRow = weekNumberTable.appendChild(weekNumberRow);
 
     
-    for(var i = 0; i < 60; i++){
+    for(var i = 0; i < 52; i++){
         var weekNumberCell = document.createElement('td');
         weekNumberCell.style.fontWeight = 'bold';
         weekNumberCell = elemAttr(weekNumberCell, {id: `week-id-${i+1}`});
@@ -94,17 +112,21 @@ function populateFTE(fteARR){
 function fteAlerts(){
     var index = 0;
     while(index < accessDataCellArr.dataCellArr.length) {
-        if(accessDataCellArr.dataCellArr[index].innerHTML >= 10){
-            accessDataCellArr.dataCellArr[index].style.background = 'red';
+        if(accessDataCellArr.dataCellArr[index].innerHTML == 0){
+            accessDataCellArr.dataCellArr[index].style.background = 'white';
+            accessDataCellArr.dataCellArr[index].style.color = 'white';
         }
-        else if(accessDataCellArr.dataCellArr[index].innerHTML >= 7 && accessDataCellArr.dataCellArr[index].innerHTML < 10){
-            accessDataCellArr.dataCellArr[index].style.background = 'orange';
-        }
-        else if(accessDataCellArr.dataCellArr[index].innerHTML >= 3 && accessDataCellArr.dataCellArr[index].innerHTML < 7){
+        else if(accessDataCellArr.dataCellArr[index].innerHTML == 1){
             accessDataCellArr.dataCellArr[index].style.background = 'yellow';
+            accessDataCellArr.dataCellArr[index].style.color = 'yellow';
+        }
+        else if(accessDataCellArr.dataCellArr[index].innerHTML == 2){
+            accessDataCellArr.dataCellArr[index].style.background = 'orange';
+            accessDataCellArr.dataCellArr[index].style.color = 'orange';
         }
         else {
-            accessDataCellArr.dataCellArr[index].style.background = 'green';
+            accessDataCellArr.dataCellArr[index].style.background = 'red';
+            accessDataCellArr.dataCellArr[index].style.color = 'red';
         }
 
         index++;
@@ -136,11 +158,7 @@ fteAlerts();
 
 
 
-
-
-console.log(fteARR);
-
-
+//13 - .25 // 39 - .75
 
 
 
