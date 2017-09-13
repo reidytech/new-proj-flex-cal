@@ -101,8 +101,10 @@ function populateFTE(fteARR){
             var weekDataCell = document.createElement('td');
             weekDataCell = elemAttr(weekDataCell, {id: `${DATA.projectNames[i].toLowerCase()} week-num-${j + 1}`});
             weekDataCell.className = 'fte-cell';
+            if(i === 0){weekDataCell.style.borderTop = '1px solid black';}
             weekDataProjRow.appendChild(weekDataCell);
             weekDataCell.innerHTML = (fteARR[i][j]).toString();
+            
             document.querySelector('.week-number-table').appendChild(weekDataProjRow);
             accessDataCellArr.dataCellArr.push(weekDataCell);
         }
@@ -113,20 +115,20 @@ function fteAlerts(){
     var index = 0;
     while(index < accessDataCellArr.dataCellArr.length) {
         if(accessDataCellArr.dataCellArr[index].innerHTML == 0){
-            accessDataCellArr.dataCellArr[index].style.background = 'white';
-            accessDataCellArr.dataCellArr[index].style.color = 'white';
+            accessDataCellArr.dataCellArr[index].style.background = 'antiquewhite';
+            accessDataCellArr.dataCellArr[index].style.color = 'antiquewhite';
         }
         else if(accessDataCellArr.dataCellArr[index].innerHTML == 1){
-            accessDataCellArr.dataCellArr[index].style.background = 'yellow';
-            accessDataCellArr.dataCellArr[index].style.color = 'yellow';
+            accessDataCellArr.dataCellArr[index].style.background = '#ffd731';
+            accessDataCellArr.dataCellArr[index].style.color = '#ffd731';
         }
         else if(accessDataCellArr.dataCellArr[index].innerHTML == 2){
-            accessDataCellArr.dataCellArr[index].style.background = 'orange';
-            accessDataCellArr.dataCellArr[index].style.color = 'orange';
+            accessDataCellArr.dataCellArr[index].style.background = '#ffa900';
+            accessDataCellArr.dataCellArr[index].style.color = '#ffa900';
         }
         else {
-            accessDataCellArr.dataCellArr[index].style.background = 'red';
-            accessDataCellArr.dataCellArr[index].style.color = 'red';
+            accessDataCellArr.dataCellArr[index].style.background = '#ff6246';
+            accessDataCellArr.dataCellArr[index].style.color = '#ff6246';
         }
 
         index++;
@@ -157,7 +159,7 @@ populateFTE(fteARR);
 fteAlerts();
 
 
-
+//sovoutlook.cloud.corp
 //13 - .25 // 39 - .75
 
 
